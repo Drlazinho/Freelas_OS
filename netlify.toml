@@ -1,7 +1,5 @@
 [build]
   command = "npm run build"
-  publish = ".output/public"
 
 [build.environment]
-  # Força o compilador do TanStack (Nitro) a gerar o build no formato do Netlify
   NITRO_PRESET = "netlify"
