@@ -10,17 +10,25 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BriefingsRouteImport } from './routes/briefings'
 import { Route as ClientesRouteImport } from './routes/clientes'
 import { Route as ConfiguracoesRouteImport } from './routes/configuracoes'
 import { Route as FinanceiroRouteImport } from './routes/financeiro'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as TarefasRouteImport } from './routes/tarefas'
+import { Route as BPublicIdRouteImport } from './routes/b.$publicId'
+import { Route as BriefingsIdRouteImport } from './routes/briefings_.$id'
 import { Route as ProjetosIndexRouteImport } from './routes/projetos.index'
 import { Route as ProjetosIdRouteImport } from './routes/projetos_.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BriefingsRoute = BriefingsRouteImport.update({
+  id: '/briefings',
+  path: '/briefings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ClientesRoute = ClientesRouteImport.update({
@@ -48,6 +56,16 @@ const TarefasRoute = TarefasRouteImport.update({
   path: '/tarefas',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BPublicIdRoute = BPublicIdRouteImport.update({
+  id: '/b/$publicId',
+  path: '/b/$publicId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BriefingsIdRoute = BriefingsIdRouteImport.update({
+  id: '/briefings_/$id',
+  path: '/briefings/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProjetosIndexRoute = ProjetosIndexRouteImport.update({
   id: '/projetos/',
   path: '/projetos/',
@@ -61,32 +79,41 @@ const ProjetosIdRoute = ProjetosIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/briefings': typeof BriefingsRoute
   '/clientes': typeof ClientesRoute
   '/configuracoes': typeof ConfiguracoesRoute
   '/financeiro': typeof FinanceiroRoute
   '/login': typeof LoginRoute
   '/tarefas': typeof TarefasRoute
+  '/b/$publicId': typeof BPublicIdRoute
+  '/briefings/$id': typeof BriefingsIdRoute
   '/projetos/$id': typeof ProjetosIdRoute
   '/projetos/': typeof ProjetosIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/briefings': typeof BriefingsRoute
   '/clientes': typeof ClientesRoute
   '/configuracoes': typeof ConfiguracoesRoute
   '/financeiro': typeof FinanceiroRoute
   '/login': typeof LoginRoute
   '/tarefas': typeof TarefasRoute
+  '/b/$publicId': typeof BPublicIdRoute
+  '/briefings/$id': typeof BriefingsIdRoute
   '/projetos/$id': typeof ProjetosIdRoute
   '/projetos': typeof ProjetosIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/briefings': typeof BriefingsRoute
   '/clientes': typeof ClientesRoute
   '/configuracoes': typeof ConfiguracoesRoute
   '/financeiro': typeof FinanceiroRoute
   '/login': typeof LoginRoute
   '/tarefas': typeof TarefasRoute
+  '/b/$publicId': typeof BPublicIdRoute
+  '/briefings_/$id': typeof BriefingsIdRoute
   '/projetos_/$id': typeof ProjetosIdRoute
   '/projetos/': typeof ProjetosIndexRoute
 }
@@ -94,42 +121,54 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/briefings'
     | '/clientes'
     | '/configuracoes'
     | '/financeiro'
     | '/login'
     | '/tarefas'
+    | '/b/$publicId'
+    | '/briefings/$id'
     | '/projetos/$id'
     | '/projetos/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/briefings'
     | '/clientes'
     | '/configuracoes'
     | '/financeiro'
     | '/login'
     | '/tarefas'
+    | '/b/$publicId'
+    | '/briefings/$id'
     | '/projetos/$id'
     | '/projetos'
   id:
     | '__root__'
     | '/'
+    | '/briefings'
     | '/clientes'
     | '/configuracoes'
     | '/financeiro'
     | '/login'
     | '/tarefas'
+    | '/b/$publicId'
+    | '/briefings_/$id'
     | '/projetos_/$id'
     | '/projetos/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BriefingsRoute: typeof BriefingsRoute
   ClientesRoute: typeof ClientesRoute
   ConfiguracoesRoute: typeof ConfiguracoesRoute
   FinanceiroRoute: typeof FinanceiroRoute
   LoginRoute: typeof LoginRoute
   TarefasRoute: typeof TarefasRoute
+  BPublicIdRoute: typeof BPublicIdRoute
+  BriefingsIdRoute: typeof BriefingsIdRoute
   ProjetosIdRoute: typeof ProjetosIdRoute
   ProjetosIndexRoute: typeof ProjetosIndexRoute
 }
@@ -141,6 +180,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/briefings': {
+      id: '/briefings'
+      path: '/briefings'
+      fullPath: '/briefings'
+      preLoaderRoute: typeof BriefingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/clientes': {
@@ -178,6 +224,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TarefasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/b/$publicId': {
+      id: '/b/$publicId'
+      path: '/b/$publicId'
+      fullPath: '/b/$publicId'
+      preLoaderRoute: typeof BPublicIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/briefings_/$id': {
+      id: '/briefings_/$id'
+      path: '/briefings/$id'
+      fullPath: '/briefings/$id'
+      preLoaderRoute: typeof BriefingsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/projetos/': {
       id: '/projetos/'
       path: '/projetos'
@@ -197,11 +257,14 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BriefingsRoute: BriefingsRoute,
   ClientesRoute: ClientesRoute,
   ConfiguracoesRoute: ConfiguracoesRoute,
   FinanceiroRoute: FinanceiroRoute,
   LoginRoute: LoginRoute,
   TarefasRoute: TarefasRoute,
+  BPublicIdRoute: BPublicIdRoute,
+  BriefingsIdRoute: BriefingsIdRoute,
   ProjetosIdRoute: ProjetosIdRoute,
   ProjetosIndexRoute: ProjetosIndexRoute,
 }

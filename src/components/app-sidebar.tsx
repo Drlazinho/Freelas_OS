@@ -5,6 +5,7 @@ import {
   ListChecks,
   Wallet,
   Users,
+  FileText,
   Settings,
   Code2,
 } from "lucide-react";
@@ -25,6 +26,7 @@ const items = [
   { title: "Dashboard", url: "/", icon: LayoutDashboard },
   { title: "Projetos", url: "/projetos", icon: FolderKanban },
   { title: "Tarefas", url: "/tarefas", icon: ListChecks },
+  { title: "Briefings", url: "/briefings", icon: FileText },
   { title: "Financeiro", url: "/financeiro", icon: Wallet },
   { title: "Clientes", url: "/clientes", icon: Users },
   { title: "Configurações", url: "/configuracoes", icon: Settings },

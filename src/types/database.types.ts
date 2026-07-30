@@ -216,6 +216,103 @@ export interface Database {
           created_at?: string | null
         }
       }
+      briefings: {
+        Row: {
+          id: string
+          user_id: string
+          cliente_id: string | null
+          public_id: string
+          nome: string
+          descricao: string | null
+          tipo: string | null
+          tecnologias: string[] | null
+          funcionalidades: Json | null
+          incluso: string | null
+          nao_incluso: string | null
+          fases: Json | null
+          prazo_total: string | null
+          modelo: string
+          valor: number
+          condicoes_pagamento: string | null
+          validade_proposta: string | null
+          status: 'Rascunho' | 'Enviado' | 'Aprovado' | 'Recusado'
+          observacoes: string | null
+          created_at: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          cliente_id?: string | null
+          public_id?: string
+          nome: string
+          descricao?: string | null
+          tipo?: string | null
+          tecnologias?: string[] | null
+          funcionalidades?: Json | null
+          incluso?: string | null
+          nao_incluso?: string | null
+          fases?: Json | null
+          prazo_total?: string | null
+          modelo?: string
+          valor?: number
+          condicoes_pagamento?: string | null
+          validade_proposta?: string | null
+          status?: 'Rascunho' | 'Enviado' | 'Aprovado' | 'Recusado'
+          observacoes?: string | null
+          created_at?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          cliente_id?: string | null
+          public_id?: string
+          nome?: string
+          descricao?: string | null
+          tipo?: string | null
+          tecnologias?: string[] | null
+          funcionalidades?: Json | null
+          incluso?: string | null
+          nao_incluso?: string | null
+          fases?: Json | null
+          prazo_total?: string | null
+          modelo?: string
+          valor?: number
+          condicoes_pagamento?: string | null
+          validade_proposta?: string | null
+          status?: 'Rascunho' | 'Enviado' | 'Aprovado' | 'Recusado'
+          observacoes?: string | null
+          created_at?: string | null
+          updated_at?: string | null
+        }
+      }
+      briefing_comentarios: {
+        Row: {
+          id: string
+          briefing_id: string
+          autor_tipo: 'freelancer' | 'cliente'
+          autor_nome: string
+          mensagem: string
+          created_at: string | null
+        }
+        Insert: {
+          id?: string
+          briefing_id: string
+          autor_tipo: 'freelancer' | 'cliente'
+          autor_nome: string
+          mensagem: string
+          created_at?: string | null
+        }
+        Update: {
+          id?: string
+          briefing_id?: string
+          autor_tipo?: 'freelancer' | 'cliente'
+          autor_nome?: string
+          mensagem?: string
+          created_at?: string | null
+        }
+      }
     }
     Views: {
       [_ in never]: never
