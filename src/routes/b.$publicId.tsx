@@ -134,6 +134,15 @@ function BriefingPublico() {
     },
   });
 
+  useEffect(() => {
+    if (briefing && window.location.search.includes('print=1')) {
+      // Give time for layout and animations to settle before printing
+      setTimeout(() => {
+        window.print();
+      }, 1000);
+    }
+  }, [briefing]);
+
   if (isLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#0a0a0f]">
@@ -230,7 +239,7 @@ function BriefingPublico() {
             </AnimatedSection>
           )}
 
-          <AnimatedSection delay={400}>
+          <AnimatedSection delay={400} className="print:hidden">
             <div className="mt-10 flex items-center gap-4">
               <button
                 onClick={scrollToChat}
@@ -485,7 +494,7 @@ function BriefingPublico() {
 
         {/* Ações do cliente */}
         {briefing.status === "Enviado" && (
-          <AnimatedSection>
+          <AnimatedSection className="print:hidden">
             <div className="flex flex-col items-center gap-4 rounded-2xl border border-violet-500/20 bg-violet-500/[0.03] p-8 text-center">
               <h3 className="text-xl font-bold">O que achou da proposta?</h3>
               <p className="text-sm text-zinc-400 max-w-md">
@@ -534,7 +543,7 @@ function BriefingPublico() {
         )}
 
         {/* Chat */}
-        <section ref={chatRef}>
+        <section ref={chatRef} className="print:hidden">
           <AnimatedSection>
             <div className="flex items-center gap-3 mb-6">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-500/10 text-violet-400">
@@ -558,7 +567,7 @@ function BriefingPublico() {
       </main>
 
       {/* Footer */}
-      <footer className="relative z-10 border-t border-white/5 py-8 text-center">
+      <footer className="relative z-10 border-t border-white/5 py-8 text-center print:hidden">
         <p className="text-xs text-zinc-600">
           Proposta gerada via{" "}
           <span className="font-medium text-zinc-500">Freela.OS</span>

@@ -24,6 +24,7 @@ import {
   Link2,
   Send,
   ExternalLink,
+  Printer,
   Plus,
   Trash2,
   X,
@@ -316,6 +317,13 @@ function BriefingEditar() {
         <div className="flex items-center gap-2 flex-wrap">
           <Button variant="outline" size="sm" onClick={handleCopyLink}>
             <Link2 className="mr-2 h-4 w-4" /> Copiar Link
+          </Button>
+          <Button variant="outline" size="sm" onClick={() => {
+            if (briefing) {
+              window.open(`/b/${briefing.public_id}?print=1`, "_blank");
+            }
+          }}>
+            <Printer className="mr-2 h-4 w-4" /> Exportar PDF
           </Button>
           <Button variant="outline" size="sm" onClick={handleOpenPublic}>
             <ExternalLink className="mr-2 h-4 w-4" /> Visualizar
