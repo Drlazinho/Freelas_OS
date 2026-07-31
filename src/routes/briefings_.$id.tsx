@@ -28,6 +28,7 @@ import {
   Plus,
   Trash2,
   X,
+  Bookmark,
 } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
@@ -208,6 +209,35 @@ function BriefingEditar() {
     },
   });
 
+  const saveTemplateMutation = useMutation({
+    mutationFn: async () => {
+      const { error } = await supabase.from("briefing_templates").insert([
+        {
+          user_id: user!.id,
+          nome: `${nome} (Template)`,
+          descricao,
+          tipo,
+          tecnologias,
+          funcionalidades: funcionalidades as any,
+          incluso,
+          nao_incluso: naoIncluso,
+          fases: fases as any,
+          modelo,
+          valor: Number(valor) || 0,
+          condicoes_pagamento: condicoesPagamento,
+          observacoes,
+        },
+      ]);
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      toast.success("Template salvo com sucesso!");
+    },
+    onError: (error) => {
+      toast.error("Erro ao salvar template", { description: error.message });
+    },
+  });
+
   const handleCopyLink = () => {
     if (!briefing) return;
     const url = `${window.location.origin}/b/${briefing.public_id}`;
@@ -315,6 +345,19 @@ function BriefingEditar() {
         </div>
 
         <div className="flex items-center gap-2 flex-wrap">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => saveTemplateMutation.mutate()}
+            disabled={saveTemplateMutation.isPending}
+          >
+            {saveTemplateMutation.isPending ? (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+              <Bookmark className="mr-2 h-4 w-4" />
+            )}
+            Salvar como Template
+          </Button>
           <Button variant="outline" size="sm" onClick={handleCopyLink}>
             <Link2 className="mr-2 h-4 w-4" /> Copiar Link
           </Button>

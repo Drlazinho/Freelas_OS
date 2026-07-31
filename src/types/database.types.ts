@@ -313,6 +313,88 @@ export interface Database {
           created_at?: string | null
         }
       }
+      briefing_templates: {
+        Row: {
+          id: string
+          user_id: string
+          nome: string
+          descricao: string | null
+          tipo: string | null
+          tecnologias: string[] | null
+          funcionalidades: Json | null
+          incluso: string | null
+          nao_incluso: string | null
+          fases: Json | null
+          modelo: string
+          valor: number
+          condicoes_pagamento: string | null
+          observacoes: string | null
+          created_at: string | null
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          nome: string
+          descricao?: string | null
+          tipo?: string | null
+          tecnologias?: string[] | null
+          funcionalidades?: Json | null
+          incluso?: string | null
+          nao_incluso?: string | null
+          fases?: Json | null
+          modelo?: string
+          valor?: number
+          condicoes_pagamento?: string | null
+          observacoes?: string | null
+          created_at?: string | null
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          nome?: string
+          descricao?: string | null
+          tipo?: string | null
+          tecnologias?: string[] | null
+          funcionalidades?: Json | null
+          incluso?: string | null
+          nao_incluso?: string | null
+          fases?: Json | null
+          modelo?: string
+          valor?: number
+          condicoes_pagamento?: string | null
+          observacoes?: string | null
+          created_at?: string | null
+        }
+      }
+      notificacoes: {
+        Row: {
+          id: string
+          user_id: string
+          titulo: string
+          mensagem: string
+          link: string | null
+          lida: boolean
+          created_at: string | null
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          titulo: string
+          mensagem: string
+          link?: string | null
+          lida?: boolean
+          created_at?: string | null
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          titulo?: string
+          mensagem?: string
+          link?: string | null
+          lida?: boolean
+          created_at?: string | null
+        }
+      }
     }
     Views: {
       [_ in never]: never

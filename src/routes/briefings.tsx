@@ -96,10 +96,12 @@ function BriefingsPage() {
   // New briefing form
   const [nome, setNome] = useState("");
   const [clienteId, setClienteId] = useState("");
+  const [templateId, setTemplateId] = useState("");
 
   const resetForm = () => {
     setNome("");
     setClienteId("");
+    setTemplateId("");
   };
 
   const { data: briefings = [], isLoading } = useQuery({
@@ -134,17 +136,50 @@ function BriefingsPage() {
     enabled: !!user,
   });
 
+  const { data: templates = [] } = useQuery({
+    queryKey: ["briefing_templates"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("briefing_templates")
+        .select("*")
+        .order("nome");
+      if (error) throw error;
+      return data;
+    },
+    enabled: !!user,
+  });
+
   const createMutation = useMutation({
     mutationFn: async () => {
+      let insertData: any = {
+        nome,
+        cliente_id: clienteId || null,
+        user_id: user!.id,
+      };
+
+      if (templateId) {
+        const tpl = templates.find((t: any) => t.id === templateId);
+        if (tpl) {
+          insertData = {
+            ...insertData,
+            descricao: tpl.descricao,
+            tipo: tpl.tipo,
+            tecnologias: tpl.tecnologias,
+            funcionalidades: tpl.funcionalidades,
+            incluso: tpl.incluso,
+            nao_incluso: tpl.nao_incluso,
+            fases: tpl.fases,
+            modelo: tpl.modelo,
+            valor: tpl.valor,
+            condicoes_pagamento: tpl.condicoes_pagamento,
+            observacoes: tpl.observacoes,
+          };
+        }
+      }
+
       const { data, error } = await supabase
         .from("briefings")
-        .insert([
-          {
-            nome,
-            cliente_id: clienteId || null,
-            user_id: user!.id,
-          },
-        ])
+        .insert([insertData])
         .select()
         .single();
       if (error) throw error;
@@ -267,6 +302,22 @@ function BriefingsPage() {
                     required
                     disabled={createMutation.isPending}
                   />
+                </div>
+                <div className="grid gap-1.5">
+                  <Label>Template (opcional)</Label>
+                  <Select value={templateId} onValueChange={setTemplateId}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Começar do zero" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="_none">Nenhum (Começar do zero)</SelectItem>
+                      {templates.map((t: any) => (
+                        <SelectItem key={t.id} value={t.id}>
+                          {t.nome}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
                 <div className="grid gap-1.5">
                   <Label>Cliente (opcional)</Label>

@@ -15,6 +15,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { useTheme } from "@/hooks/use-theme";
 import { useAuth } from "@/lib/auth-context";
+import { NotificationsBell } from "@/components/notifications-bell";
 
 export function Topbar() {
   const { theme, toggle } = useTheme();
@@ -37,6 +38,7 @@ export function Topbar() {
       <Button variant="ghost" size="icon" className="sm:hidden" aria-label="Buscar">
         <Search className="h-4 w-4" />
       </Button>
+      <NotificationsBell />
       <Button
         variant="ghost"
         size="icon"
